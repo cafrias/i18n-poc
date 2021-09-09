@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import { useQuery } from 'react-query'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Post, User } from '../../models/models'
 
 // -------------------------------------------------------
@@ -51,6 +52,33 @@ const Home: NextPage = () => {
       <p>{post.body}</p>
     </article>
   );
+}
+
+// -------------------------------------------------------
+// SSG
+// -------------------------------------------------------
+
+export const getStaticProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common']),
+  },
+})
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { pid: '1' } },
+      { params: { pid: '1' }, locale: 'es' },
+      { params: { pid: '1' }, locale: 'en' },
+      { params: { pid: '2' } },
+      { params: { pid: '2' }, locale: 'es' },
+      { params: { pid: '2' }, locale: 'en' },
+      { params: { pid: '3' } },
+      { params: { pid: '3' }, locale: 'es' },
+      { params: { pid: '3' }, locale: 'en' },
+    ],
+    fallback: false,
+  };
 }
 
 export default Home

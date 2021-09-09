@@ -16,12 +16,6 @@ export const posts: Post[] = [
   {
     userId: "1",
     id: "3",
-    title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-    body: "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
-  },
-  {
-    userId: "1",
-    id: "4",
     title: "129 neue Corona-Fälle im Land Bremen registriert",
     body: "Das Gesundheitsressort hat heute 129 neue Corona-Fälle im Land Bremen gemeldet. In Bremen wurden 102 Neuinfektionen registriert (Vorwoche: 82). Aus Bremerhaven wurden 27 neue Fälle gemeldet (Vorwoche: 36). Damit steigt die Sieben-Tage-Inzidenz in Bremen von 101,6 auf 105,4. So hoch war der Wert zuletzt Anfang Mai. In Bremerhaven fällt der Wert für Neuinfektionen pro 100.000 Einwohner binnen sieben Tagen von 223,5 auf 216,5.",
   },

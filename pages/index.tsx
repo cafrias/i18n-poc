@@ -4,12 +4,13 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Post } from "../models/models";
-import styles from "../styles/Home.module.css";
 
 // -------------------------------------------------------
 // Component
 // -------------------------------------------------------
+
 const Home: NextPage = () => {
   const { data: posts, isLoading } = useQuery<Post[]>("posts", () => {
     return fetch("/api/posts").then((res) =>
@@ -22,14 +23,14 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Posts</title>
         <meta name="description" content="My i18n blog" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className={styles.main}>
+      <section>
         <ul>
           {posts.map((post) => {
             return (
@@ -45,5 +46,15 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+// -------------------------------------------------------
+// Static
+// -------------------------------------------------------
+
+export const getStaticProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common']),
+  },
+})
 
 export default Home;
