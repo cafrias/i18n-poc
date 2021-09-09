@@ -1,8 +1,22 @@
-export interface Post {
+export enum Locale {
+  DE = 'de',
+  ES = 'es',
+  EN = 'en',
+}
+
+interface AbstractPost {
   id: string;
+  userId: string;
+}
+
+export interface LocalePost extends AbstractPost {
+  title: Record<Locale, string>;
+  body: Record<Locale, string>;
+}
+
+export interface Post extends AbstractPost {
   title: string;
   body: string;
-  userId: string;
 }
 
 export interface User {

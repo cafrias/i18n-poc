@@ -10,13 +10,13 @@ import { Post, User } from '../../models/models'
 // Component
 // -------------------------------------------------------
 const Home: NextPage = () => {
-	const { query: { pid } } = useRouter();
-  const { data: post, isLoading: postLoading } = useQuery<Post>(['post', pid], () => {
-    return fetch(`/api/posts/${pid}`)
+	const { query: { pid }, locale } = useRouter();
+  const { data: post, isLoading: postLoading } = useQuery<Post>(['post', pid, locale], () => {
+    return fetch(`/api/posts/${pid}?locale=${locale}`)
       .then((response) => response.json());
   });
-  const { data: user, isLoading: userLoading } = useQuery<User>(['user', post?.userId], () => {
-    return fetch(`/api/users/${post?.userId}`)
+  const { data: user, isLoading: userLoading } = useQuery<User>(['user', locale, post?.userId], () => {
+    return fetch(`/api/users/${post?.userId}?locale=${locale}`)
       .then((res) => res.json())
   }, {
     enabled: Boolean(post),

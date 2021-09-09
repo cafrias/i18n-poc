@@ -4,18 +4,18 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "react-query";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Post } from "../models/models";
+import { useRouter } from "next/dist/client/router";
 
 // -------------------------------------------------------
 // Component
 // -------------------------------------------------------
 
 const Home: NextPage = () => {
-  const { data: posts, isLoading } = useQuery<Post[]>("posts", () => {
-    return fetch("/api/posts").then((res) =>
-      res.json()
-    );
+  const { locale } = useRouter();
+  const { data: posts, isLoading } = useQuery<Post[]>(["posts", locale], () => {
+    return fetch(`/api/posts?locale=${locale}`).then((res) => res.json());
   });
 
   if (!posts || isLoading) {
@@ -53,8 +53,8 @@ const Home: NextPage = () => {
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...await serverSideTranslations(locale, ['common']),
+    ...(await serverSideTranslations(locale, ["common"])),
   },
-})
+});
 
 export default Home;
